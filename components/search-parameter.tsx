@@ -4,22 +4,21 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { FieldValues, UseFormReturn, useFieldArray } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 
 interface SearchComponentProps {
-  label: string;
-  property: string;
-  placeholder?: string;
-  searchTerm: string;
-  onSearchChange: (property: string, value: string) => void;
+  form: UseFormReturn<FieldValues, any, undefined>;
+  searchPropertyIndex: number;
 }
 
 export default function SearchParameter({
-  label,
-  property,
-  placeholder = "Search...",
-  searchTerm,
-  onSearchChange,
+  form,
+  searchPropertyIndex,
 }: SearchComponentProps) {
+  const searchProperty =
+    form.getValues().searchTerms[searchPropertyIndex].property;
+
   return (
     <div className="w-full max-w-sm space-y-2">
       <div className="flex items-center justify-between">
